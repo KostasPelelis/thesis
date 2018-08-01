@@ -1,0 +1,37 @@
+{
+  "name": "blueprint-editor",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "ajv": "^5.5.2",
+    "copy-to-clipboard": "^3.0.8",
+    "eslint": "^2.0.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "flow": "^0.2.3",
+    "jest": "^21.2.1",
+    "keymirror": "^0.1.1",
+    "nullthrows": "^1.0.0",
+    "react": "^15.6.1",
+    "react-ace": "^5.1.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-scripts": "1.1.0",
+    "react-syntax-highlighter": "^6.1.1",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "add": "^2.0.6",
+    "flow-bin": "^0.60.1",
+    "semantic-ui-css": "^2.2.14",
+    "semantic-ui-react": "^0.78.2",
+    "yarn": "^1.3.2"
+  },
+  "proxy": "http://localhost:3002/"
+}

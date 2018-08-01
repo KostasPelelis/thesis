@@ -1,0 +1,31 @@
+{
+  "name": "blueprint-editor",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "babel-eslint": "^8.0.3",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-latest": "^6.24.1",
+    "body-parser": "1.15.2",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "express": "4.14.0",
+    "flow": "^0.2.3",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-flowtype": "^1.0.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "jest": "^21.2.1",
+    "morgan": "1.7.0",
+    "supertest": "^3.0.0",
+    "supertest-as-promised": "^4.0.2"
+  },
+  "scripts": {
+    "start": "node build/index.js",
+    "build": "gulp build:server",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.60.1"
+  }
+}

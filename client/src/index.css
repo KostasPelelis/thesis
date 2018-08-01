@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  padding: 1em;
+}
+
+.blueprint-explorer {
+  max-width: 728px;
+  margin-bottom: 1em;
+}

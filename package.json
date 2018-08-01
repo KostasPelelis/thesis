@@ -1,0 +1,18 @@
+{
+  "name": "blueprint-editor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"yarn server\" \"yarn client\"",
+    "build": "cd server && yarn build && cd ..",
+    "server": "node start-server.js",
+    "client": "node start-client.js"
+  },
+  "author": "Kostas Pelelis <kpelelisos@gmail.com> (http://www.plkost.eu/)",
+  "license": "ISC"
+}
