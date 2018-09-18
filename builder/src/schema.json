@@ -1,0 +1,338 @@
+{
+   "type": "object",
+   "description": "This is a VDC Blueprint which consists of five sections",
+   "properties": {
+      "INTERNAL_STRUCTURE": {
+         "type": "object",
+         "description": "General information about the VDC Blueprint",
+         "properties": {
+            "Overview": {
+               "type": "object",
+               "properties": {
+                  "name": {
+                     "type": "string",
+                     "description":
+                        "This field should contain the name of the VDC Blueprint"
+                  },
+                  "description": {
+                     "type": "string",
+                     "description":
+                        "This field should contain a short description of the VDC Blueprint"
+                  },
+                  "tags": {
+                     "type": "array",
+                     "description":
+                        "Each element of this array should contain some keywords that describe the functionality of each one exposed VDC method",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "method_id": {
+                              "type": "string",
+                              "description":
+                                 "The id (operationId) of the method (as indicated in the EXPOSED_API.paths field)"
+                           },
+                           "tags": {
+                              "type": "array",
+                              "items": {
+                                 "type": "string"
+                              },
+                              "minItems": 1,
+                              "uniqueItems": true
+                           }
+                        },
+                        "additionalProperties": false,
+                        "required": ["method_id", "tags"]
+                     },
+                     "minItems": 1,
+                     "uniqueItems": true
+                  }
+               },
+               "additionalProperties": false,
+               "required": ["name", "description", "tags"]
+            },
+            "Data_Sources": {
+               "type": "array",
+               "items": {
+                  "type": "object",
+                  "properties": {
+                     "id": {
+                        "type": "string",
+                        "description": "A unique identifier"
+                     },
+                     "description": {
+                        "type": "string"
+                     },
+                     "location": {
+                        "enum": ["cloud", "edge"]
+                     },
+                     "class": {
+                        "enum": [
+                           "relational database",
+                           "object storage",
+                           "time-series database",
+                           "api",
+                           "data stream"
+                        ]
+                     },
+                     "type": {
+                        "type": "string",
+                        "examples": ["MySQL", "Minio", "InfluxDB", "rest"]
+                     },
+                     "parameters": {
+                        "type": "object",
+                        "description": "Connection parameters"
+                     },
+                     "schema": {
+                        "type": "object"
+                     }
+                  },
+                  "required": ["id"]
+               },
+               "minItems": 1,
+               "uniqueItems": true
+            },
+            "Flow": {
+               "type": "object",
+               "description": "The data flow that implements the VDC",
+               "properties": {
+                  "platform": {
+                     "enum": ["Spark", "Node-RED"]
+                  },
+                  "parameters": {
+                     "type": "object"
+                  },
+                  "source_code": {}
+               },
+               "additionalProperties": false,
+               "required": ["platform"]
+            },
+            "Testing_Output_Data": {
+               "type": "array",
+               "items": {
+                  "type": "object",
+                  "properties": {
+                     "method_id": {
+                        "type": "string",
+                        "description":
+                           "The id (operationId) of the method (as indicated in the EXPOSED_API.paths field)"
+                     },
+                     "zip_data": {
+                        "type": "string",
+                        "description":
+                           "The URI to the zip testing output data for each one exposed VDC method"
+                     }
+                  },
+                  "additionalProperties": false,
+                  "required": ["method_id", "zip_data"]
+               },
+               "minItems": 1,
+               "uniqueItems": true
+            }
+         },
+         "additionalProperties": false,
+         "required": ["Overview", "Data_Sources", "Flow", "Testing_Output_Data"]
+      },
+      "DATA_MANAGEMENT": {
+         "description": "list of methods",
+         "type": "array",
+         "items": {
+            "type": "object",
+            "properties": {
+               "method_id": {
+                  "description":
+                     "The id (operationId) of the method (as indicated in the EXPOSED_API.paths field)",
+                  "type": "string"
+               },
+               "attributes": {
+                  "type": "object",
+                  "description": "goal trees",
+                  "properties": {
+                     "dataUtility": {
+                        "type": "array",
+                        "items": {
+                           "type": "object",
+                           "description": "definition of the metric",
+                           "properties": {
+                              "id": {
+                                 "description": "id of the metric",
+                                 "type": "string"
+                              },
+                              "name": {
+                                 "description": "name of the metric",
+                                 "type": "string"
+                              },
+                              "type": {
+                                 "description": "type of the metric",
+                                 "type": "string"
+                              },
+                              "properties": {
+                                 "type": "object",
+                                 "description":
+                                    "properties related to the metric",
+                                 "additionalProperties": {
+                                    "type": "object",
+                                    "description":
+                                       "properties related to the metric",
+                                    "properties": {
+                                       "unit": {
+                                          "description":
+                                             "unit of measure of the property",
+                                          "type": "string"
+                                       },
+                                       "maximum": {
+                                          "description":
+                                             "lower limit of the offered property",
+                                          "type": "number"
+                                       },
+                                       "minimum": {
+                                          "description":
+                                             "upper limit of the offered property",
+                                          "type": "number"
+                                       },
+                                       "value": {
+                                          "description":
+                                             "value of the property",
+                                          "type": ["string", "number", "array"]
+                                       }
+                                    }
+                                 }
+                              }
+                           }
+                        }
+                     },
+                     "security": {
+                        "$ref":
+                           "#/properties/DATA_MANAGEMENT/items/properties/attributes/properties/dataUtility"
+                     },
+                     "privacy": {
+                        "$ref":
+                           "#/properties/DATA_MANAGEMENT/items/properties/attributes/properties/dataUtility"
+                     }
+                  }
+               }
+            },
+            "required": ["method_id", "attributes"]
+         }
+      },
+      "ABSTRACT_PROPERTIES": {},
+      "COOKBOOK_APPENDIX": {},
+      "EXPOSED_API": {
+         "title": "CAF API",
+         "type": "object",
+         "description":
+            "The CAF RESTful API of the VDC, written according to the current version (3.0.1) of the OpenAPI Specification (OAS), but also adapted to DITAS requirements",
+         "properties": {
+            "paths": {
+               "type": "object",
+               "patternProperties": {
+                  "^/": {
+                     "type": "object",
+                     "patternProperties": {
+                        "^get$": {
+                           "allOf": [
+                              {
+                                 "$ref":
+                                    "#/properties/EXPOSED_API/definitions/method"
+                              },
+                              {
+                                 "properties": {
+                                    "parameters": {}
+                                 }
+                              }
+                           ]
+                        },
+                        "^post$": {
+                           "allOf": [
+                              {
+                                 "$ref":
+                                    "#/properties/EXPOSED_API/definitions/method"
+                              },
+                              {
+                                 "properties": {
+                                    "requestBody": {
+                                       "type": "object",
+                                       "properties": {
+                                          "content": {
+                                             "$ref":
+                                                "#/properties/EXPOSED_API/definitions/content"
+                                          }
+                                       }
+                                    }
+                                 },
+                                 "required": ["requestBody"]
+                              }
+                           ]
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "definitions": {
+            "method": {
+               "title": "An Exposed VDC Method",
+               "type": "object",
+               "description":
+                  "Corresponds to the Operation Object defined in the OpenAPI Specification (OAS) version 3.0.1",
+               "properties": {
+                  "summary": {},
+                  "operationId": {},
+                  "responses": {
+                     "type": "object",
+                     "patternProperties": {
+                        "^200$|^201$": {
+                           "type": "object",
+                           "properties": {
+                              "content": {
+                                 "$ref":
+                                    "#/properties/EXPOSED_API/definitions/content"
+                              }
+                           },
+                           "required": ["content"]
+                        }
+                     }
+                  },
+                  "x-data-sources": {
+                     "type": "array",
+                     "description":
+                        "An array that contains all the identifiers of the data sources (as indicated in the INTERNAL_STRUCTURE.Data_Sources field) that are accessed by the method",
+                     "items": {
+                        "type": "string"
+                     },
+                     "minItems": 1,
+                     "uniqueItems": true
+                  }
+               },
+               "required": [
+                  "summary",
+                  "operationId",
+                  "responses",
+                  "x-data-sources"
+               ]
+            },
+            "content": {
+               "type": "object",
+               "patternProperties": {
+                  "^application/json$": {
+                     "type": "object",
+                     "properties": {
+                        "schema": {
+                           "type": "object"
+                        }
+                     },
+                     "required": ["schema"]
+                  }
+               }
+            }
+         }
+      }
+   },
+   "additionalProperties": false,
+   "required": [
+      "INTERNAL_STRUCTURE",
+      "DATA_MANAGEMENT",
+      "ABSTRACT_PROPERTIES",
+      "COOKBOOK_APPENDIX",
+      "EXPOSED_API"
+   ]
+}

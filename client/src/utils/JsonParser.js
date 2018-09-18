@@ -1,6 +1,3 @@
-/*
-* @flow
-*/
 let at;
 let row, col;
 let currentChar;

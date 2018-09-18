@@ -1,0 +1,19 @@
+{
+  "name": "builder",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "flow-bin": "^0.79.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-jsonschema-form": "^1.0.4",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "flow": "flow",
+    "eject": "react-scripts eject"
+  }
+}
